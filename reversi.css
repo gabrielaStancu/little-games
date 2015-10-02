@@ -8,6 +8,7 @@
 
 .square{
     position: absolute;
+    border-radius: 16px;
     width: 56px;
     height: 56px;
 }
@@ -32,3 +33,7 @@
 
 .red{background-color: red;}
 .black{background-color: black;}
+.blue{background-color: blue;}
+.green{background-color: green;}
+.color0{background-color: green;}
+.color1{background-color: black;}
