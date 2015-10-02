@@ -2,8 +2,8 @@
     position: absolute;
     width: 535px; height: 531px;
     top: 0px; left: 0px;
-    border: 2px green solid;
-    background: url('images/board.jpg') no-repeat left;
+    border: 7px #B8B8B8 solid;
+    background-color: #D0D0D0;
 }
 
 .square{
@@ -11,6 +11,7 @@
     border-radius: 16px;
     width: 56px;
     height: 56px;
+    z-index: 1; 
 }
 
 .row1{top: 10px;}
@@ -35,5 +36,32 @@
 .black{background-color: black;}
 .blue{background-color: blue;}
 .green{background-color: green;}
-.color0{background-color: green;}
-.color1{background-color: black;}
+.color0{background-color: #339966;}
+.color1{background-color: #333333;}
+
+/*.color0{background-color: green;}*/
+/*.color1{background-color: black;}*/
+
+.line{
+    position: absolute;
+    background-color: gray;
+}
+
+.horizontally{width: 523px; height: 1px; left: 6px;}
+.vertical{width: 1px; height: 519px; top: 6px;}
+
+#v_line0{left: 74px;}
+#v_line1{left: 138px;}
+#v_line2{left: 203px;}
+#v_line3{left: 266px;}
+#v_line4{left: 331px;}
+#v_line5{left: 395px;}
+#v_line6{left: 461px; width: 0.5px;}
+
+#h_line0{top: 69px; height: 0.5px;}
+#h_line1{top: 134px;}
+#h_line2{top: 198px;}
+#h_line3{top: 262px;}
+#h_line4{top: 326px;}
+#h_line5{top: 391px;}
+#h_line6{top: 457px; height: 0.5px;}
