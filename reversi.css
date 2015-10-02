@@ -1,22 +1,3 @@
-
-@media (max-width: 797px) {
-    body { 
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-}
-
-.container-fluid {
-    padding: 0px;
-}
-
-.truncate {
-  /*width: 100%;*/
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 #board{
     position: absolute;
     width: 535px; height: 531px;
