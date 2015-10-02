@@ -16,6 +16,7 @@ function init() {
     generateSquares();
     generateLines();
     addColor();
+    startGame();
     
 }
 
@@ -24,7 +25,8 @@ function generateSquares() {
         for (var i = 1; i <= 8; i++) {
             for (var j = 1; j <= 8; j++) {
                 for (var k = 0; k < 64; k++) {
-                    $("#mySquares").append("<div id=\"square_" + j + i + "\" class=\"row" + j + " square col" + i + "\"></div>");
+//                    $("#mySquares").append("<div id=\"square_" + j + i + "\" class=\"row" + j + " square col" + i + "\"></div>");
+                    $("#mySquares").append("<div id=\"square_" + j + i + "\" class=\"row" + j + " square hidden col" + i + "\"></div>");
                 }
             }
         }
@@ -47,4 +49,11 @@ function generateLines() {
     for (var i = 0; i <= 6; i++) {
         $("#myLines").append("<div id=\"h_line" + i + "\" class=\"line horizontally\"></div>");
     }
+}
+
+function startGame() {
+        $("#square_55").removeClass("hidden");
+        if ($("#square_55").hasClass("color0")){
+            $("#square_44").removeClass("hidden");
+        }
 }
