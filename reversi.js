@@ -14,6 +14,7 @@ function init() {
         return .5 - Math.random();
     });
     generateSquares();
+    generateLines();
     addColor();
     
 }
@@ -35,5 +36,15 @@ function addColor() {
             $("#square_" + j + i).addClass("color" + randomColor[0]);
             randomColor.splice(0,1);
         }
+    }
+}
+
+function generateLines() {
+    for (var j = 0; j <= 6; j++) {
+        $("#myLines").append("<div id=\"v_line" + j + "\" class=\"line vertical\"></div>");
+    }
+    
+    for (var i = 0; i <= 6; i++) {
+        $("#myLines").append("<div id=\"h_line" + i + "\" class=\"line horizontally\"></div>");
     }
 }
