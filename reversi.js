@@ -87,8 +87,8 @@ function colorSquaresWithGreen() {
         for (var i = x; i >= 1; i--) {
             if ($("#square_" + i + y).hasClass("color2")) {
                 $("#square_" + i + y).removeClass("color2").addClass("color1");
-                y = y - 1;
             }
+            y = y - 1;
         }
     }
 //    lower right corner -> (x+1, y+1) 
@@ -96,8 +96,8 @@ function colorSquaresWithGreen() {
         for (var i = x; i <= 8; i++) {
             if ($("#square_" + i + y).hasClass("color2")) {
                 $("#square_" + i + y).removeClass("color2").addClass("color1");
-                y = y + 1;
             }
+            y = y + 1;
         }
     }
 //    upper right corner -> (x-1, y+1) 
@@ -105,8 +105,8 @@ function colorSquaresWithGreen() {
         for (var i = x; i >= 1; i--) {
             if ($("#square_" + i + y).hasClass("color2")) {
                 $("#square_" + i + y).removeClass("color2").addClass("color1");
-                y = y + 1;
             }
+            y = y + 1;
         }
     }
 //    lower left corner -> (x+1, y-1) 
@@ -114,8 +114,8 @@ function colorSquaresWithGreen() {
         for (var i = x; i <= 8; i++) {
             if ($("#square_" + i + y).hasClass("color2")) {
                 $("#square_" + i + y).removeClass("color2").addClass("color1");
-                y = y - 1;
             }
+            y = y - 1;
         }
     }
 }
@@ -158,8 +158,8 @@ function colorSquaresWithBlack() {
         for (var i = x; i >= 1; i--) {
             if ($("#square_" + i + y).hasClass("color1")) {
                 $("#square_" + i + y).removeClass("color1").addClass("color2");
-                y = y - 1;
             }
+            y = y - 1;
         }
     }
 //    lower right corner -> (x+1, y+1) 
@@ -167,8 +167,8 @@ function colorSquaresWithBlack() {
         for (var i = x; i <= 8; i++) {
             if ($("#square_" + i + y).hasClass("color1")) {
                 $("#square_" + i + y).removeClass("color1").addClass("color2");
-                y = y + 1;
             }
+            y = y + 1;
         }
     }
 //    upper right corner -> (x-1, y+1) 
@@ -176,8 +176,8 @@ function colorSquaresWithBlack() {
         for (var i = x; i >= 1; i--) {
             if ($("#square_" + i + y).hasClass("color1")) {
                 $("#square_" + i + y).removeClass("color1").addClass("color2");
-                y = y + 1;
             }
+            y = y + 1;
         }
     }
 //    lower left corner -> (x+1, y-1) 
@@ -185,8 +185,8 @@ function colorSquaresWithBlack() {
         for (var i = x; i <= 8; i++) {
             if ($("#square_" + i + y).hasClass("color1")) {
                 $("#square_" + i + y).removeClass("color1").addClass("color2");
-                y = y - 1;
             }
+            y = y - 1;
         }
     }
 }
