@@ -6,7 +6,6 @@
     left: 0px;
     border: 7px #B8B8B8 solid;
     background-color: #D0D0D0;
-    /*box-shadow: 5px 5px 5px #C0C0C0;*/
 }
 
 #board1{
@@ -22,11 +21,11 @@
 
 .square{
     position: absolute;
-    border-radius: 16px;
+    border-radius: 27px;
     width: 56px;
     height: 56px;
     z-index: 1;
-    box-shadow: 1px 1px 5px 0px #888888;
+    box-shadow: 1px 1px 5px 1px #989898;
 }
 
 .row1{top: 10px;}
@@ -55,7 +54,7 @@
 
 .line{
     position: absolute;
-    background-color: gray;
+    background-color: #C8C8C8;
 }
 
 #line0{left: 74px; width: 1px; height: 519px; top: 6px;}
