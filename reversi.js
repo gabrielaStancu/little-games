@@ -34,10 +34,8 @@ function startGame() {
 
 function clickOnItem() {
     index = this.id.substring(7);
-    x = index.substring(0,1);
-    y = index.substring(1);
-    x = parseInt(x);
-    y = parseInt(y);
+    x = parseInt(index.substring(0,1));
+    y = parseInt(index.substring(1));
     if ($("#square_" + index).hasClass("color0")) {
         if (greenUser) {
             greenUser = false;
