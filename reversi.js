@@ -46,7 +46,7 @@ function clickOnItem() {
         } else {
             greenUser = true;
             $("#square_" + index).removeClass("color0").addClass("color2");
-//            checkNeighbourhood4BlackUser();
+            checkNeighbourhood4BlackUser();
         }
     }
 }
@@ -87,42 +87,36 @@ function checkNeighbourhood4GreenUser() {
 //    upper left corner -> (x-1, y-1) 
     if (!$("#square_" + (x - 1) + (y - 1)).hasClass("color0")) {
         for (var i = x; i >= 1; i--) {
-            for (var j = y; j >= 1; j--) {
-                if ($("#square_" + i + j).hasClass("color2")) {
-                    $("#square_" + i + j).removeClass("color2").addClass("color1");
-                }
+            if ($("#square_" + i + y).hasClass("color2")) {
+                $("#square_" + i + y).removeClass("color2").addClass("color1");
+                y = y - 1;
             }
         }
     }
 //    lower right corner -> (x+1, y+1) 
     if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && x+1 < 9 && y+1 < 9) {
         for (var i = x; i <= 8; i++) {
-            for (var j = y; j <= 8; j++) {
-                if ($("#square_" + i + j).hasClass("color2")) {
-                    $("#square_" + i + j).removeClass("color2").addClass("color1");
-                }
+            if ($("#square_" + i + y).hasClass("color2")) {
+                $("#square_" + i + y).removeClass("color2").addClass("color1");
+                y = y + 1;
             }
         }
     }
 //    upper right corner -> (x-1, y+1) 
     if (!$("#square_" + (x - 1) + (y + 1)).hasClass("color0") && (x + 1) < 9 && (y + 1) < 9) {
         for (var i = x; i >= 1; i--) {
-            for (var j = y; j <= 8; j++) {
-                if (i == j) {
-                    if ($("#square_" + i + j).hasClass("color2")) {
-                        $("#square_" + i + j).removeClass("color2").addClass("color1");
-                    }
-                }
+            if ($("#square_" + i + y).hasClass("color2")) {
+                $("#square_" + i + y).removeClass("color2").addClass("color1");
+                y = y + 1;
             }
         }
     }
 //    lower left corner -> (x+1, y-1) 
     if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && (x+1) < 9 && (y+1) < 9) {
         for (var i = x; i <= 8; i++) {
-            for (var j = y; j >= 1; j--) {
-                if ($("#square_" + i + j).hasClass("color2")) {
-                    $("#square_" + i + j).removeClass("color2").addClass("color1");
-                }
+            if ($("#square_" + i + y).hasClass("color2")) {
+                $("#square_" + i + y).removeClass("color2").addClass("color1");
+                y = y - 1;
             }
         }
     }
@@ -130,59 +124,71 @@ function checkNeighbourhood4GreenUser() {
 
 function checkNeighbourhood4BlackUser() {
 //    up -> (x-1, y)
-    for (var i = x; i >= 1; i--) {
-        if($("#square_" + i + y).hasClass("color1")) {
-            $("#square_" + i + y).removeClass("color1").addClass("color2");
-        }   
-    }
-//    up -> (x+1, y) 
-    for (var i = x; i <= 8; i++) {
-        if($("#square_" + i + y).hasClass("color1")) {
-            $("#square_" + i + y).removeClass("color1").addClass("color2");
-        }   
-    }
-//    up -> (x, y-1) 
-    for (var i = y; i >= 1; i--) {
-        if($("#square_" + x + i).hasClass("color1")) {
-            $("#square_" + x + i).removeClass("color1").addClass("color2");
-        }   
-    }
-//    up -> (x, y+1) 
-    for (var i = y; i <= 8; i++) {
-        if($("#square_" + x + i).hasClass("color1")) {
-            $("#square_" + x + i).removeClass("color1").addClass("color2");
-        }   
-    }
-//    up -> (x-1, y-1) 
-    for (var i = x; i >= 1; i--) {
-        for (var j = y; j >= 1; j--) {
-            if ($("#square_" + i + j).hasClass("color1")) {
-                $("#square_" + i + j).removeClass("color1").addClass("color2");
+    if (!$("#square_" + (x - 1) + y).hasClass("color0")) {
+        for (var i = x; i >= 1; i--) {
+            if ($("#square_" + i + y).hasClass("color1")) {
+                $("#square_" + i + y).removeClass("color1").addClass("color2");
             }
         }
     }
-//    up -> (x+1, y+1) 
-    for (var i = x; i <= 8; i++) {
-        for (var j = y; j <= 8; j++) {
-            if ($("#square_" + i + j).hasClass("color1")) {
-                $("#square_" + i + j).removeClass("color1").addClass("color2");
+//    down -> (x+1, y) 
+    if (!$("#square_" + (x + 1) + y).hasClass("color0")  && (x+1) < 9 && (y+1) < 9) {
+        for (var i = x; i <= 8; i++) {
+            if ($("#square_" + i + y).hasClass("color1")) {
+                $("#square_" + i + y).removeClass("color1").addClass("color2");
             }
         }
     }
-//    up -> (x-1, y+1) 
-    for (var i = x; i >= 1; i--) {
-        for (var j = y; j <= 8; j++) {
-            if ($("#square_" + i + j).hasClass("color1")) {
-                $("#square_" + i + j).removeClass("color1").addClass("color2");
+//    left, same line -> (x, y-1) 
+    if (!$("#square_" + x + (y - 1)).hasClass("color0")) {
+        for (var i = y; i >= 1; i--) {
+            if ($("#square_" + x + i).hasClass("color1")) {
+                $("#square_" + x + i).removeClass("color1").addClass("color2");
             }
         }
     }
-//    up -> (x+1, y-1) 
-    for (var i = x; i <= 8; i++) {
-        for (var j = y; j >= 1; j--) {
-            if ($("#square_" + i + j).hasClass("color1")) {
-                $("#square_" + i + j).removeClass("color1").addClass("color2");
+//    right, same line -> (x, y+1) 
+    if (!$("#square_" + x + (y + 1)).hasClass("color0") && (x+1) < 9 && (y+1) < 9) {
+        for (var i = y; i <= 8; i++) {
+            if ($("#square_" + x + i).hasClass("color1")) {
+                $("#square_" + x + i).removeClass("color1").addClass("color2");
             }
         }
-    }    
+    }
+//    upper left corner -> (x-1, y-1) 
+    if (!$("#square_" + (x - 1) + (y - 1)).hasClass("color0")) {
+        for (var i = x; i >= 1; i--) {
+            if ($("#square_" + i + y).hasClass("color1")) {
+                $("#square_" + i + y).removeClass("color1").addClass("color2");
+                y = y - 1;
+            }
+        }
+    }
+//    lower right corner -> (x+1, y+1) 
+    if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && x+1 < 9 && y+1 < 9) {
+        for (var i = x; i <= 8; i++) {
+            if ($("#square_" + i + y).hasClass("color1")) {
+                $("#square_" + i + y).removeClass("color1").addClass("color2");
+                y = y + 1;
+            }
+        }
+    }
+//    upper right corner -> (x-1, y+1) 
+    if (!$("#square_" + (x - 1) + (y + 1)).hasClass("color0") && (x + 1) < 9 && (y + 1) < 9) {
+        for (var i = x; i >= 1; i--) {
+            if ($("#square_" + i + y).hasClass("color1")) {
+                $("#square_" + i + y).removeClass("color1").addClass("color2");
+                y = y + 1;
+            }
+        }
+    }
+//    lower left corner -> (x+1, y-1) 
+    if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && (x+1) < 9 && (y+1) < 9) {
+        for (var i = x; i <= 8; i++) {
+            if ($("#square_" + i + y).hasClass("color1")) {
+                $("#square_" + i + y).removeClass("color1").addClass("color2");
+                y = y - 1;
+            }
+        }
+    }
 }
