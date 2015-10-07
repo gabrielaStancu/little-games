@@ -42,16 +42,16 @@ function clickOnItem() {
         if (greenUser) {
             greenUser = false;
             $("#square_" + index).removeClass("color0").addClass("color1");
-            checkNeighbourhood4GreenUser();
+            colorSquaresWithGreen();
         } else {
             greenUser = true;
             $("#square_" + index).removeClass("color0").addClass("color2");
-            checkNeighbourhood4BlackUser();
+            colorSquaresWithBlack();
         }
     }
 }
 
-function checkNeighbourhood4GreenUser() {
+function colorSquaresWithGreen() {
 //    up -> (x-1, y)
     if (!$("#square_" + (x - 1) + y).hasClass("color0")) {
         for (var i = x; i >= 1; i--) {
@@ -122,7 +122,7 @@ function checkNeighbourhood4GreenUser() {
     }
 }
 
-function checkNeighbourhood4BlackUser() {
+function colorSquaresWithBlack() {
 //    up -> (x-1, y)
     if (!$("#square_" + (x - 1) + y).hasClass("color0")) {
         for (var i = x; i >= 1; i--) {
