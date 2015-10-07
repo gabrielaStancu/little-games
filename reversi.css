@@ -6,7 +6,18 @@
     left: 0px;
     border: 7px #B8B8B8 solid;
     background-color: #D0D0D0;
-    box-shadow: 5px 5px 5px #888888;
+    /*box-shadow: 5px 5px 5px #C0C0C0;*/
+}
+
+#board1{
+    position: absolute;
+    width: 522px;
+    height: 518px;
+    top: 0px;
+    left: 0px;
+    border: 7px #CCFFFF solid;
+    background-color: #CCFFFF;
+    opacity: 0.2;
 }
 
 .square{
@@ -15,7 +26,7 @@
     width: 56px;
     height: 56px;
     z-index: 1;
-    box-shadow: 5px 5px 5px #888888;
+    box-shadow: 1px 1px 5px 0px #888888;
 }
 
 .row1{top: 10px;}
@@ -36,9 +47,9 @@
 .col7{left: 400px;}
 .col8{left: 466px;}
 
-.color0{background: linear-gradient(60deg, gray, #D0D0D0);}
-.color1{background: linear-gradient(60deg, #003300, #006600);}
-.color2{background: linear-gradient(60deg, #303030 , #181818);}
+.color0{background: radial-gradient(#E0E0E0, #C8C8C8);}
+.color1{background: radial-gradient(#33CC66, #336633);}
+.color2{background: radial-gradient(#686868, #303030);}
 
 .button{cursor: pointer;}
 
