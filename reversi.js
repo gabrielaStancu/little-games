@@ -57,6 +57,7 @@ function colorSquaresWithGreen() {
             if ($("#square_" + i + innerY).hasClass("color2")) {
                 $("#square_" + i + innerY).removeClass("color2").addClass("color1");
             }
+            if ($("#square_" + (x - 1) + innerY).hasClass("color0 color1")) {break;}
         }
     }
 //    down -> (x+1, y) 
@@ -66,6 +67,7 @@ function colorSquaresWithGreen() {
             if ($("#square_" + i + innerY).hasClass("color2")) {
                 $("#square_" + i + innerY).removeClass("color2").addClass("color1");
             }
+            if ($("#square_" + (x + 1) + innerY).hasClass("color0 color1")) {break;}
         }
     }
 //    left, same line -> (x, y-1) 
@@ -75,6 +77,7 @@ function colorSquaresWithGreen() {
             if ($("#square_" + x + i).hasClass("color2")) {
                 $("#square_" + x + i).removeClass("color2").addClass("color1");
             }
+            if ($("#square_" + x + (innerY - 1)).hasClass("color0 color1")) {break;}
         }
     }
 //    right, same line -> (x, y+1) 
@@ -84,6 +87,7 @@ function colorSquaresWithGreen() {
             if ($("#square_" + x + i).hasClass("color2")) {
                 $("#square_" + x + i).removeClass("color2").addClass("color1");
             }
+            if ($("#square_" + x + (innerY + 1)).hasClass("color0 color1")) {break;}
         }
     }
 //    upper left corner -> (x-1, y-1) 
@@ -93,6 +97,7 @@ function colorSquaresWithGreen() {
             if ($("#square_" + i + innerY).hasClass("color2")) {
                 $("#square_" + i + innerY).removeClass("color2").addClass("color1");
             }
+            if ($("#square_" + (x - 1) + (innerY - 1)).hasClass("color0 color1")) {break;}
             innerY = innerY - 1;
         }
     }
@@ -103,6 +108,7 @@ function colorSquaresWithGreen() {
             if ($("#square_" + i + innerY).hasClass("color2")) {
                 $("#square_" + i + innerY).removeClass("color2").addClass("color1");
             }
+            if ($("#square_" + (x + 1) + (innerY + 1)).hasClass("color0 color1")) {break;}
             innerY = innerY + 1;
         }
     }
@@ -113,6 +119,7 @@ function colorSquaresWithGreen() {
             if ($("#square_" + i + innerY).hasClass("color2")) {
                 $("#square_" + i + innerY).removeClass("color2").addClass("color1");
             }
+            if ($("#square_" + (x - 1) + (innerY + 1)).hasClass("color0 color1")) {break;}
             innerY = innerY + 1;
         }
     }
@@ -123,6 +130,7 @@ function colorSquaresWithGreen() {
             if ($("#square_" + i + innerY).hasClass("color2")) {
                 $("#square_" + i + innerY).removeClass("color2").addClass("color1");
             }
+            if ($("#square_" + (x + 1) + (innerY - 1)).hasClass("color0 color1")) {break;}
             innerY = innerY - 1;
         }
     }
@@ -136,6 +144,7 @@ function colorSquaresWithBlack() {
             if ($("#square_" + i + innerY).hasClass("color1")) {
                 $("#square_" + i + innerY).removeClass("color1").addClass("color2");
             }
+            if ($("#square_" + (x - 1) + innerY).hasClass("color0 color2")) {break;}
         }
     }
 //    down -> (x+1, y) 
@@ -145,6 +154,7 @@ function colorSquaresWithBlack() {
             if ($("#square_" + i + innerY).hasClass("color1")) {
                 $("#square_" + i + innerY).removeClass("color1").addClass("color2");
             }
+            if ($("#square_" + (x + 1) + innerY).hasClass("color0 color2")) {break;}
         }
     }
 //    left, same line -> (x, y-1) 
@@ -154,6 +164,7 @@ function colorSquaresWithBlack() {
             if ($("#square_" + x + i).hasClass("color1")) {
                 $("#square_" + x + i).removeClass("color1").addClass("color2");
             }
+            if ($("#square_" + x + (innerY - 1)).hasClass("color0 color2")) {break;}
         }
     }
 //    right, same line -> (x, y+1) 
@@ -163,6 +174,7 @@ function colorSquaresWithBlack() {
             if ($("#square_" + x + i).hasClass("color1")) {
                 $("#square_" + x + i).removeClass("color1").addClass("color2");
             }
+            if ($("#square_" + x + (innerY + 1)).hasClass("color0 color2")) {break;}
         }
     }
 //    upper left corner -> (x-1, y-1) 
@@ -172,6 +184,7 @@ function colorSquaresWithBlack() {
             if ($("#square_" + i + innerY).hasClass("color1")) {
                 $("#square_" + i + innerY).removeClass("color1").addClass("color2");
             }
+            if ($("#square_" + (x - 1) + (innerY - 1)).hasClass("color0 color2")) {break;}
             innerY = innerY - 1;
         }
     }
@@ -182,6 +195,7 @@ function colorSquaresWithBlack() {
             if ($("#square_" + i + innerY).hasClass("color1")) {
                 $("#square_" + i + innerY).removeClass("color1").addClass("color2");
             }
+            if ($("#square_" + (x + 1) + (innerY + 1)).hasClass("color0 color2")) {break;}
             innerY = innerY + 1;
         }
     }
@@ -192,6 +206,7 @@ function colorSquaresWithBlack() {
             if ($("#square_" + i + innerY).hasClass("color1")) {
                 $("#square_" + i + innerY).removeClass("color1").addClass("color2");
             }
+            if ($("#square_" + (x - 1) + (innerY + 1)).hasClass("color0 color2")) {break;}
             innerY = innerY + 1;
         }
     }
@@ -202,6 +217,7 @@ function colorSquaresWithBlack() {
             if ($("#square_" + i + innerY).hasClass("color1")) {
                 $("#square_" + i + innerY).removeClass("color1").addClass("color2");
             }
+            if ($("#square_" + (x + 1) + (innerY - 1)).hasClass("color0 color2")) {break;}
             innerY = innerY - 1;
         }
     }
