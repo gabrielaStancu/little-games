@@ -50,6 +50,8 @@ function clickOnItem() {
     }
 }
 
+// todo: one method to find the corect path....
+
 function colorSquaresInGreen() {
 //    up -> (x-1, y)
     if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
