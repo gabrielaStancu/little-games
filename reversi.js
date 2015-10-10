@@ -50,7 +50,9 @@ function clickOnItem() {
     }
 }
 
-// todo: one method to find the corect path....
+// todo: 1. make a single method for colorSquaresInBlack and colorSquaresInGreen, like: move(player,x,y), after this methods run correct
+
+// todo: 2. one method to find the corect path for the 8 directions, like: move(player,x,y,xDirection,yDirection), where xDirection,xDirection can let the following values:[-1,0,1]
 
 function colorSquaresInGreen() {
 //    up -> (x-1, y)
