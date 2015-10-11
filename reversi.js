@@ -54,7 +54,19 @@ function clickOnItem() {
 
 // todo: 2. one method to find the corect path for the 8 directions, like: move(player,x,y,xDirection,yDirection), where xDirection,xDirection can let the following values:[-1,0,1]
 
-// todo: 3: I am joke:)
+// todo: 3: I see the gameboard like a matrix (I call "m", you say as you want) with the dimesions 8x8, with values:
+// - 0, free space
+// - 1, green space (or gamer1 space)
+// - 2, black space  (or gamer2 space)
+// So, when a gamer (now I choose gamer1) put a piece into a space (x,y) on gameboard you must to make the following checks (I describe just for up path : ((x-1),y):
+// if m[x][y]=0, ok, free space check
+// while if the potential occupied piece is on gameboard:
+//    (x'+xd=>0 && x'+xd<=7) //, where xd = xDirection = -1, and intial x'=x, and then x' will be the next potential x'=x+xd
+//    (y'+yd>=0 && y'+yd<=7) // where yx=yDirection = 0 and inital y'=y  and then y' will be the next potential y'=x+yd  
+// and m[x'+xd][y'+yd]=2, ok
+// then the algorithm move the while step, then, check
+//   if the next potential space (x',y') is on gameboard and m[x'][y']=1, ok
+// if you arrive in this point change all space between (x,y) and (x',y') with your pieces
 
 function colorSquaresInGreen() {
 //    up -> (x-1, y)
