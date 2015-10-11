@@ -54,6 +54,8 @@ function clickOnItem() {
 
 // todo: 2. one method to find the corect path for the 8 directions, like: move(player,x,y,xDirection,yDirection), where xDirection,xDirection can let the following values:[-1,0,1]
 
+// todo: 3: I am joke:)
+
 function colorSquaresInGreen() {
 //    up -> (x-1, y)
     if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
