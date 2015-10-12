@@ -80,30 +80,14 @@ function clickOnItem() {
 // if you arrive in this point change all space between (x,y) and (x',y') with your pieces
 
 function checkNearness(x, y) {
-    if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
-        countNearness++;
-    }
-    if (!$("#square_" + (x + 1) + y).hasClass("color0") && (x + 1) < 9) {
-        countNearness++;
-    }
-    if (!$("#square_" + x + (y - 1)).hasClass("color0") && (y - 1) > 0) {
-        countNearness++;
-    }
-    if (!$("#square_" + x + (y + 1)).hasClass("color0") && (y + 1) < 9) {
-        countNearness++;
-    }
-    if (!$("#square_" + (x - 1) + (y - 1)).hasClass("color0") && (x - 1) > 0 && (y - 1) > 0) {
-        countNearness++;
-    }
-    if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && (x + 1) < 9 && (y + 1) < 9) {
-        countNearness++;
-    }
-    if (!$("#square_" + (x - 1) + (y + 1)).hasClass("color0") && (x - 1) > 0 && (y + 1) < 9) {
-        countNearness++;
-    }
-    if (!$("#square_" + (x + 1) + (y - 1)).hasClass("color0") && (x + 1) < 9 && (y - 1) > 0) {
-        countNearness++;
-    }
+    if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {countNearness++;}
+    if (!$("#square_" + (x + 1) + y).hasClass("color0") && (x + 1) < 9) {countNearness++;}
+    if (!$("#square_" + x + (y - 1)).hasClass("color0") && (y - 1) > 0) {countNearness++;}
+    if (!$("#square_" + x + (y + 1)).hasClass("color0") && (y + 1) < 9) { countNearness++;}
+    if (!$("#square_" + (x - 1) + (y - 1)).hasClass("color0") && (x - 1) > 0 && (y - 1) > 0) {countNearness++;}
+    if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && (x + 1) < 9 && (y + 1) < 9) {countNearness++;}
+    if (!$("#square_" + (x - 1) + (y + 1)).hasClass("color0") && (x - 1) > 0 && (y + 1) < 9) {countNearness++;}
+    if (!$("#square_" + (x + 1) + (y - 1)).hasClass("color0") && (x + 1) < 9 && (y - 1) > 0) {countNearness++;}
 }
 
 function colorSquaresInGreen(x, y) {
