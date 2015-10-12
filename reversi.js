@@ -10,8 +10,6 @@ function init() {
 var greenUser = true;
 var inside = false;
 var index = 0;
-var x = 0;
-var y = 0;
 
 function generateItems() {
 //    squares are generated
@@ -35,17 +33,17 @@ function startGame() {
 
 function clickOnItem() {
     index = this.id.substring(7);
-    x = parseInt(index.substring(0,1));
-    y = parseInt(index.substring(1));
+    var x = parseInt(index.substring(0,1));
+    var y = parseInt(index.substring(1));
     if ($("#square_" + index).hasClass("color0")) {
         if (greenUser) {
             greenUser = false;
             $("#square_" + index).removeClass("color0").addClass("color1");
-            colorSquaresInGreen();
+            colorSquaresInGreen(x, y);
         } else {
             greenUser = true;
             $("#square_" + index).removeClass("color0").addClass("color2");
-            colorSquaresInBlack();
+            colorSquaresInBlack(x, y);
         }
     }
 }
@@ -68,7 +66,7 @@ function clickOnItem() {
 //   if the next potential space (x',y') is on gameboard and m[x'][y']=1, ok
 // if you arrive in this point change all space between (x,y) and (x',y') with your pieces
 
-function colorSquaresInGreen() {
+function colorSquaresInGreen(x, y) {
 //    up -> (x-1, y)
     if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
         var innerY = y;
@@ -153,11 +151,11 @@ function colorSquaresInGreen() {
         var lastIndexOnX;
         var lastIndexOnY;
         for (var i = (x - 1); i >= 1; i--) {
-            if ($("#square_" + i + innerY).hasClass("color2")) {
+            if ($("#square_" + i + (innerY - 1)).hasClass("color2")) {
                 indexesOnX.push(i);
             } else {
                 lastIndexOnX = i;
-                lastIndexOnY = innerY;
+                lastIndexOnY = anotherInnerY;
                 if ($("#square_" + lastIndexOnX + lastIndexOnY).hasClass("color1")) {
                     for (var k = 0; k < indexesOnX.length; k++) {
                         $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
@@ -176,12 +174,12 @@ function colorSquaresInGreen() {
         var indexesOnX = [];
         var lastIndexOnX;
         var lastIndexOnY;
-        for (var i = x; i <= 8; i++) {
-            if ($("#square_" + i + innerY).hasClass("color2")) {
+        for (var i = (x + 1); i <= 8; i++) {
+            if ($("#square_" + i + (innerY + 1)).hasClass("color2")) {
                 indexesOnX.push(i);
             } else {
                 lastIndexOnX = i;
-                lastIndexOnY = innerY;
+                lastIndexOnY = anotherInnerY;
                 if ($("#square_" + lastIndexOnX + lastIndexOnY).hasClass("color1")) {
                     for (var k = 0; k < indexesOnX.length; k++) {
                         $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
@@ -201,12 +199,12 @@ function colorSquaresInGreen() {
         var indexesOnX = [];
         var lastIndexOnX;
         var lastIndexOnY;
-        for (var i = x; i >= 1; i--) {
-            if ($("#square_" + i + innerY).hasClass("color2")) {
+        for (var i = (x - 1); i >= 1; i--) {
+            if ($("#square_" + i + (innerY + 1)).hasClass("color2")) {
                 indexesOnX.push(i);
             } else {
                 lastIndexOnX = i;
-                lastIndexOnY = innerY;
+                lastIndexOnY = anotherInnerY;
                 if ($("#square_" + lastIndexOnX + lastIndexOnY).hasClass("color1")) {
                     for (var k = 0; k < indexesOnX.length; k++) {
                         $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
@@ -225,12 +223,12 @@ function colorSquaresInGreen() {
         var indexesOnX = [];
         var lastIndexOnX;
         var lastIndexOnY;
-        for (var i = x; i <= 8; i++) {
-            if ($("#square_" + i + innerY).hasClass("color2")) {
+        for (var i = (x + 1); i <= 8; i++) {
+            if ($("#square_" + i + (innerY + 1)).hasClass("color2")) {
                 indexesOnX.push(i);
             } else {
                 lastIndexOnX = i;
-                lastIndexOnY = innerY;
+                lastIndexOnY = anotherInnerY;
                 if ($("#square_" + lastIndexOnX + lastIndexOnY).hasClass("color1")) {
                     for (var k = 0; k < indexesOnX.length; k++) {
                         $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
@@ -244,7 +242,7 @@ function colorSquaresInGreen() {
     }
 }
 
-function colorSquaresInBlack() {
+function colorSquaresInBlack(x, y) {
 //    up -> (x-1, y)
     if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
         var innerY = y;
