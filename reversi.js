@@ -221,77 +221,149 @@ function colorSquaresInBlack(x, y) {
 //    up -> (x-1, y)
     if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
         var innerY = y;
-        for (var i = x; i >= 1; i--) {
+        var indexesOnX = [];
+        for (var i = (x - 1); i >= 1; i--) {
             if ($("#square_" + i + innerY).hasClass("color1")) {
-                $("#square_" + i + innerY).removeClass("color1").addClass("color2");
+                indexesOnX.push(i);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color2")) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        $("#square_" + indexesOnX[k] + innerY).removeClass("color1").addClass("color2");
+                    }
+                }
+                break;
             }
         }
     }
 //    down -> (x+1, y) 
-    if (!$("#square_" + (x + 1) + y).hasClass("color0")  && (x + 1) < 9) {
+    if (!$("#square_" + (x + 1) + y).hasClass("color0") && (x + 1) < 9) {
         var innerY = y;
-        for (var i = x; i <= 8; i++) {
+        var indexesOnX = [];
+        for (var i = (x + 1); i <= 8; i++) {
             if ($("#square_" + i + innerY).hasClass("color1")) {
-                $("#square_" + i + innerY).removeClass("color1").addClass("color2");
+                indexesOnX.push(i);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color2")) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        $("#square_" + indexesOnX[k] + innerY).removeClass("color1").addClass("color2");
+                    }
+                }
+                break;
             }
         }
     }
 //    left, same line -> (x, y-1) 
     if (!$("#square_" + x + (y - 1)).hasClass("color0") && (y - 1) > 0) {
         var innerY = y;
-        for (var i = innerY; i >= 1; i--) {
+        var indexesOnY = [];
+        for (var i = (innerY - 1); i >= 1; i--) {
             if ($("#square_" + x + i).hasClass("color1")) {
-                $("#square_" + x + i).removeClass("color1").addClass("color2");
+                indexesOnY.push(i);
+            } else {
+                if ($("#square_" + x + i).hasClass("color2")) {
+                    for (var k = 0; k < indexesOnY.length; k++) {
+                        $("#square_" + x + indexesOnY[k]).removeClass("color1").addClass("color2");
+                    }
+                }
+                break;
             }
         }
     }
 //    right, same line -> (x, y+1) 
     if (!$("#square_" + x + (y + 1)).hasClass("color0") && (y + 1) < 9) {
         var innerY = y;
-        for (var i = innerY; i <= 8; i++) {
+        var indexesOnY = [];
+        for (var i = (innerY + 1); i <= 8; i++) {
             if ($("#square_" + x + i).hasClass("color1")) {
-                $("#square_" + x + i).removeClass("color1").addClass("color2");
+                indexesOnY.push(i);
+            } else {
+                if ($("#square_" + x + i).hasClass("color2")) {
+                    for (var k = 0; k < indexesOnY.length; k++) {
+                        $("#square_" + x + indexesOnY[k]).removeClass("color1").addClass("color2");
+                    }
+                }
+                break;
             }
         }
     }
 //    upper left corner -> (x-1, y-1) 
     if (!$("#square_" + (x - 1) + (y - 1)).hasClass("color0") && (x - 1) > 0 && (y - 1) > 0) {
         var innerY = y;
-        for (var i = x; i >= 1; i--) {
-            if ($("#square_" + i + innerY).hasClass("color1")) {
-                $("#square_" + i + innerY).removeClass("color1").addClass("color2");
-            }
+        var indexesOnX = [];
+        var indexesOnY = [];
+        for (var i = (x - 1); i >= 1; i--) {
             innerY = innerY - 1;
+            if ($("#square_" + i + innerY).hasClass("color1")) {
+                indexesOnX.push(i);
+                indexesOnY.push(innerY);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color2")) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color1").addClass("color2");
+                    }
+                }
+                break;
+            }
         }
     }
 //    lower right corner -> (x+1, y+1) 
     if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && (x + 1) < 9 && (y + 1) < 9) {
         var innerY = y;
-        for (var i = x; i <= 8; i++) {
-            if ($("#square_" + i + innerY).hasClass("color1")) {
-                $("#square_" + i + innerY).removeClass("color1").addClass("color2");
-            }
+        var indexesOnX = [];
+        var indexesOnY = [];
+        for (var i = (x + 1); i <= 8; i++) {
             innerY = innerY + 1;
+            if ($("#square_" + i + innerY).hasClass("color1")) {
+                indexesOnX.push(i);
+                indexesOnY.push(innerY);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color2")) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color1").addClass("color2");
+                    }
+                }
+                break;
+            }
         }
     }
 //    upper right corner -> (x-1, y+1) 
     if (!$("#square_" + (x - 1) + (y + 1)).hasClass("color0") && (x - 1) > 0 && (y + 1) < 9) {
         var innerY = y;
-        for (var i = x; i >= 1; i--) {
-            if ($("#square_" + i + innerY).hasClass("color1")) {
-                $("#square_" + i + innerY).removeClass("color1").addClass("color2");
-            }
+        var indexesOnX = [];
+        var indexesOnY = [];
+        for (var i = (x - 1); i >= 1; i--) {
             innerY = innerY + 1;
+            if ($("#square_" + i + innerY).hasClass("color1")) {
+                indexesOnX.push(i);
+                indexesOnY.push(innerY);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color2")) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color1").addClass("color2");
+                    }
+                }
+                break;
+            }
         }
     }
 //    lower left corner -> (x+1, y-1) 
     if (!$("#square_" + (x + 1) + (y - 1)).hasClass("color0") && (x + 1) < 9 && (y - 1) > 0) {
         var innerY = y;
-        for (var i = x; i <= 8; i++) {
-            if ($("#square_" + i + innerY).hasClass("color1")) {
-                $("#square_" + i + innerY).removeClass("color1").addClass("color2");
-            }
+        var indexesOnX = [];
+        var indexesOnY = [];
+        for (var i = (x + 1); i <= 8; i++) {
             innerY = innerY - 1;
+            if ($("#square_" + i + innerY).hasClass("color1")) {
+                indexesOnX.push(i);
+                indexesOnY.push(innerY);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color2")) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color1").addClass("color2");
+                    }
+                }
+                break;
+            }
         }
     }
 }
