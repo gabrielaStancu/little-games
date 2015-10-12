@@ -71,12 +71,10 @@ function colorSquaresInGreen(x, y) {
     if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
         var innerY = y;
         var indexesOnX = [];
-        var lastIndex;
         for (var i = (x - 1); i >= 1; i--) {
             if ($("#square_" + i + innerY).hasClass("color2")) {
                 indexesOnX.push(i);
             } else {
-                lastIndex = i;
                 if ($("#square_" + i + innerY).hasClass("color1")) {
                     for (var k = 0; k < indexesOnX.length; k++) {
                         $("#square_" + indexesOnX[k] + innerY).removeClass("color2").addClass("color1");
@@ -90,12 +88,10 @@ function colorSquaresInGreen(x, y) {
     if (!$("#square_" + (x + 1) + y).hasClass("color0") && (x + 1) < 9) {
         var innerY = y;
         var indexesOnX = [];
-        var lastIndex;
         for (var i = (x + 1); i <= 8; i++) {
             if ($("#square_" + i + innerY).hasClass("color2")) {
                 indexesOnX.push(i);
             } else {
-                lastIndex = i;
                 if ($("#square_" + i + innerY).hasClass("color1")) {
                     for (var k = 0; k < indexesOnX.length; k++) {
                         $("#square_" + indexesOnX[k] + innerY).removeClass("color2").addClass("color1");
@@ -109,13 +105,11 @@ function colorSquaresInGreen(x, y) {
     if (!$("#square_" + x + (y - 1)).hasClass("color0") && (y - 1) > 0) {
         var innerY = y;
         var indexesOnY = [];
-        var lastIndex;
         for (var i = (innerY - 1); i >= 1; i--) {
             if ($("#square_" + x + i).hasClass("color2")) {
                 indexesOnY.push(i);
             } else {
-                lastIndex = i;
-                if ($("#square_" + i + innerY).hasClass("color1")) {
+                if ($("#square_" + x + i).hasClass("color1")) {
                     for (var k = 0; k < indexesOnY.length; k++) {
                         $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
                     } 
@@ -128,13 +122,11 @@ function colorSquaresInGreen(x, y) {
     if (!$("#square_" + x + (y + 1)).hasClass("color0") && (y + 1) < 9) {
         var innerY = y;
         var indexesOnY = [];
-        var lastIndex;
         for (var i = (innerY + 1); i <= 8; i++) {
             if ($("#square_" + x + i).hasClass("color2")) {
                 indexesOnY.push(i);
             } else {
-                lastIndex = i;
-                if ($("#square_" + i + innerY).hasClass("color1")) {
+                if ($("#square_" + x + i).hasClass("color1")) {
                     for (var k = 0; k < indexesOnY.length; k++) {
                         $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
                     } 
@@ -146,98 +138,81 @@ function colorSquaresInGreen(x, y) {
 //    upper left corner -> (x-1, y-1) 
     if (!$("#square_" + (x - 1) + (y - 1)).hasClass("color0") && (x - 1) > 0 && (y - 1) > 0) {
         var innerY = y;
-        var anotherInnerY = y;
         var indexesOnX = [];
-        var lastIndexOnX;
-        var lastIndexOnY;
+        var indexesOnY = [];
         for (var i = (x - 1); i >= 1; i--) {
-            if ($("#square_" + i + (innerY - 1)).hasClass("color2")) {
+            innerY = innerY - 1;
+            if ($("#square_" + i + innerY).hasClass("color2")) {
                 indexesOnX.push(i);
+                indexesOnY.push(innerY);
             } else {
-                lastIndexOnX = i;
-                lastIndexOnY = anotherInnerY;
-                if ($("#square_" + lastIndexOnX + lastIndexOnY).hasClass("color1")) {
+                if ($("#square_" + i + innerY).hasClass("color1")) {
                     for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
-                        anotherInnerY = anotherInnerY - 1;
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color2").addClass("color1");
                     } 
                 }
                 break;
             }
-            innerY = innerY - 1;
         }
     }
 //    lower right corner -> (x+1, y+1) 
     if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && (x + 1) < 9 && (y + 1) < 9) {
         var innerY = y;
-        var anotherInnerY = y;
         var indexesOnX = [];
-        var lastIndexOnX;
-        var lastIndexOnY;
+        var indexesOnY = [];
         for (var i = (x + 1); i <= 8; i++) {
-            if ($("#square_" + i + (innerY + 1)).hasClass("color2")) {
+            innerY = innerY + 1;
+            if ($("#square_" + i + innerY).hasClass("color2")) {
                 indexesOnX.push(i);
+                indexesOnY.push(innerY);
             } else {
-                lastIndexOnX = i;
-                lastIndexOnY = anotherInnerY;
-                if ($("#square_" + lastIndexOnX + lastIndexOnY).hasClass("color1")) {
+                if ($("#square_" + i + innerY).hasClass("color1")) {
                     for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
-                        anotherInnerY = anotherInnerY + 1;
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color2").addClass("color1");
                     } 
                 }
                 break;
             }
-            innerY = innerY + 1;
         }
     }
 //    upper right corner -> (x-1, y+1) 
     if (!$("#square_" + (x - 1) + (y + 1)).hasClass("color0") && (x - 1) > 0 && (y + 1) < 9) {
         var innerY = y;
-        var innerY = y;
-        var anotherInnerY = y;
         var indexesOnX = [];
-        var lastIndexOnX;
-        var lastIndexOnY;
+        var indexesOnY = [];
         for (var i = (x - 1); i >= 1; i--) {
-            if ($("#square_" + i + (innerY + 1)).hasClass("color2")) {
+            innerY = innerY + 1;
+            if ($("#square_" + i + innerY).hasClass("color2")) {
                 indexesOnX.push(i);
+                indexesOnY.push(innerY);
             } else {
-                lastIndexOnX = i;
-                lastIndexOnY = anotherInnerY;
-                if ($("#square_" + lastIndexOnX + lastIndexOnY).hasClass("color1")) {
+                if ($("#square_" + i + innerY).hasClass("color1")) {
                     for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
-                        anotherInnerY = anotherInnerY + 1;
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color2").addClass("color1");
                     } 
                 }
                 break;
             }
-            innerY = innerY + 1;
         }
     }
 //    lower left corner -> (x+1, y-1) 
     if (!$("#square_" + (x + 1) + (y - 1)).hasClass("color0") && (x + 1) < 9 && (y - 1) > 0) {
         var innerY = y;
-        var anotherInnerY = y;
         var indexesOnX = [];
-        var lastIndexOnX;
-        var lastIndexOnY;
+        var indexesOnY = [];
         for (var i = (x + 1); i <= 8; i++) {
-            if ($("#square_" + i + (innerY + 1)).hasClass("color2")) {
+            innerY = innerY - 1;
+            if ($("#square_" + i + innerY).hasClass("color2")) {
                 indexesOnX.push(i);
+                indexesOnY.push(innerY);
             } else {
-                lastIndexOnX = i;
-                lastIndexOnY = anotherInnerY;
-                if ($("#square_" + lastIndexOnX + lastIndexOnY).hasClass("color1")) {
+                if ($("#square_" + i + innerY).hasClass("color1")) {
                     for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
-                        anotherInnerY = anotherInnerY - 1;
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color2").addClass("color1");
                     } 
                 }
                 break;
             }
-            innerY = innerY - 1;
         }
     }
 }
