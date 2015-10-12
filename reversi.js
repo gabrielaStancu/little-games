@@ -10,6 +10,7 @@ function init() {
 var greenUser = true;
 var inside = false;
 var index = 0;
+var countNearness = 0;
 
 function generateItems() {
 //    squares are generated
@@ -37,12 +38,24 @@ function clickOnItem() {
     var y = parseInt(index.substring(1));
     if ($("#square_" + index).hasClass("color0")) {
         if (greenUser) {
+            checkNearness(x, y);
+            if(countNearness !== 0) {
+                $("#square_" + index).removeClass("color0").addClass("color1");
+                countNearness = 0;
+            } else {
+                return;
+            }
             greenUser = false;
-            $("#square_" + index).removeClass("color0").addClass("color1");
             colorSquaresInGreen(x, y);
         } else {
+            checkNearness(x, y);
+            if(countNearness !== 0) {
+                $("#square_" + index).removeClass("color0").addClass("color2");
+                countNearness = 0;
+            } else {
+                return;
+            }
             greenUser = true;
-            $("#square_" + index).removeClass("color0").addClass("color2");
             colorSquaresInBlack(x, y);
         }
     }
@@ -65,6 +78,33 @@ function clickOnItem() {
 // then the algorithm move the while step, then, check
 //   if the next potential space (x',y') is on gameboard and m[x'][y']=1, ok
 // if you arrive in this point change all space between (x,y) and (x',y') with your pieces
+
+function checkNearness(x, y) {
+    if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
+        countNearness++;
+    }
+    if (!$("#square_" + (x + 1) + y).hasClass("color0") && (x + 1) < 9) {
+        countNearness++;
+    }
+    if (!$("#square_" + x + (y - 1)).hasClass("color0") && (y - 1) > 0) {
+        countNearness++;
+    }
+    if (!$("#square_" + x + (y + 1)).hasClass("color0") && (y + 1) < 9) {
+        countNearness++;
+    }
+    if (!$("#square_" + (x - 1) + (y - 1)).hasClass("color0") && (x - 1) > 0 && (y - 1) > 0) {
+        countNearness++;
+    }
+    if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && (x + 1) < 9 && (y + 1) < 9) {
+        countNearness++;
+    }
+    if (!$("#square_" + (x - 1) + (y + 1)).hasClass("color0") && (x - 1) > 0 && (y + 1) < 9) {
+        countNearness++;
+    }
+    if (!$("#square_" + (x + 1) + (y - 1)).hasClass("color0") && (x + 1) < 9 && (y - 1) > 0) {
+        countNearness++;
+    }
+}
 
 function colorSquaresInGreen(x, y) {
 //    up -> (x-1, y)
