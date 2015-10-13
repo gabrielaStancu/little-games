@@ -13,6 +13,8 @@ var inside = false;
 var index = 0;
 var countNearness = 0;
 var matrix = [];
+var totalGreens = 0;
+var totalBlacks = 0;
 
 function generateItems() {
 //    matrix is generated
@@ -269,4 +271,22 @@ function colorSquares(x, y) {
             }
         }
     }
+    checkScore();
+}
+
+function checkScore() {
+    totalGreens = 0;
+    totalBlacks = 0;
+    for (var i = 1; i <= 8; i++) {
+        for (var j = 1; j <= 8; j++) {
+            if($("#square_" + j + i).hasClass("color1")) {
+                totalGreens++;
+            } else {
+                totalBlacks++;
+            }
+            
+        }
+    }
+    $("#labelGreenUser").text("Total Green: " + totalGreens);
+    $("#labelBlackUser").text("Total Black: " + totalBlacks);
 }
