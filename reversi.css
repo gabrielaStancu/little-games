@@ -28,6 +28,31 @@
     opacity: 0.2;
 }
 
+.labelScore{
+    position: absolute;
+    width: 148px;
+    height: 35px;
+    opacity: 0.6;
+    font-size: 18px;
+    color: white;
+    padding-top: 15px;
+    padding-left: 20px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px 1px #989898;
+}
+
+#labelGreenUser{
+    top: 262px;
+    left: 209px;
+    background: radial-gradient(#33CC66, #336633);
+}
+
+#labelBlackUser{
+    top: 328px;
+    left: 209px;
+    background: radial-gradient(#686868, #303030);
+}
+
 .square{
     position: absolute;
     border-radius: 27px;
