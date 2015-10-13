@@ -8,17 +8,25 @@ function init() {
 }
 
 var greenUser = true;
+var green = true;
 var inside = false;
 var index = 0;
 var countNearness = 0;
+var matrix = [];
 
 function generateItems() {
+//    matrix is generated
+    for (var i = 1; i < 9; i++) {
+        matrix[i] = [];
+    }
+    
 //    squares are generated
     $("#mySquares").empty();
     for (var i = 1; i <= 8; i++) {
         for (var j = 1; j <= 8; j++) {
             $("#mySquares").append("<div id=\"square_" + j + i + "\" class=\"row" + j + " square button color0 col" + i + "\"></div>");
             $("#square_" + j + i).off("click").on("click", clickOnItem);
+            matrix[i][j] = 0;
         }
     }
 //    lines are generated
@@ -31,7 +39,16 @@ function generateItems() {
     }
 }
 
+function movePlayer(x, y, player) {
+    matrix[x][y] = player;
+}
+
+
 function startGame() {
+//    matrix[4][4]=1;
+//    matrix[5][5]=1;
+//    matrix[4][5]=2;
+//    matrix[5][4]=2;
     $("#square_44, #square_55").removeClass("color0").addClass("color1");
     $("#square_45, #square_54").removeClass("color0").addClass("color2");
 }
@@ -50,7 +67,8 @@ function clickOnItem() {
                 return;
             }
             greenUser = false;
-            colorSquaresInGreen(x, y);
+            green = true;
+            colorSquares(x, y);
         } else {
             checkNearness(x, y);
             if(countNearness !== 0) {
@@ -60,26 +78,27 @@ function clickOnItem() {
                 return;
             }
             greenUser = true;
-            colorSquaresInBlack(x, y);
+            green = false;
+            colorSquares(x, y);
         }
     }
 }
 
-// todo: 1. make a single method for colorSquaresInBlack and colorSquaresInGreen, like: move(player,x,y), after this methods run correct
+// todo: 1. make a single method for colorSquaresInBlack and colorSquaresInGreen, like: move(player,x,y), when this methods runs correctly
 
-// todo: 2. one method to find the corect path for the 8 directions, like: move(player,x,y,xDirection,yDirection), where xDirection,xDirection can let the following values:[-1,0,1]
+// todo: 2. one method to find the corect path for all the 8 directions, like: move(player,x,y,xDirection,yDirection), where xDirection,yDirection can get the following values:[-1,0,1]
 
-// todo: 3: I see the gameboard like a matrix (I call "m", you say as you want) with the dimesions 8x8, with values:
-// - 0, free space
-// - 1, green space (or gamer1 space)
-// - 2, black space  (or gamer2 space)
-// So, when a gamer (now I choose gamer1) put a piece into a space (x,y) on gameboard you must to make the following checks (I describe just for up path : ((x-1),y):
-// if m[x][y]=0, ok, free space check
+// todo: 3: I see the gameboard like a matrix (I call "m", you call it as you want) with the dimensions 8x8, having the values:
+// - 0, empty space (or gray)
+// - 1, green space (or player1 space)
+// - 2, black space  (or player2 space)
+// So, when a player (now I choose player1) put a piece into a space (x,y) on gameboard you must do the following checks (I'll describe only for the up path : ((x-1),y):
+// if m[x][y]=0, ok, empty space check
 // while if the potential occupied piece is on gameboard:
 //    (x'+xd=>0 && x'+xd<=7) //, where xd = xDirection = -1, and intial x'=x, and then x' will be the next potential x'=x+xd
 //    (y'+yd>=0 && y'+yd<=7) // where yx=yDirection = 0 and inital y'=y  and then y' will be the next potential y'=x+yd  
 // and m[x'+xd][y'+yd]=2, ok
-// then the algorithm move the while step, then, check
+// then the algorithm moves the while step, then, check
 //   if the next potential space (x',y') is on gameboard and m[x'][y']=1, ok
 // if you arrive in this point change all space between (x,y) and (x',y') with your pieces
 
@@ -94,18 +113,25 @@ function checkNearness(x, y) {
     if (!$("#square_" + (x + 1) + (y - 1)).hasClass("color0") && (x + 1) < 9 && (y - 1) > 0) {countNearness++;}
 }
 
-function colorSquaresInGreen(x, y) {
+function colorSquares(x, y) {
+    if (green) {
+        colorIn = 1;
+        colorOut = 2;
+    } else {
+        colorIn = 2;
+        colorOut = 1;
+    }
 //    up -> (x-1, y)
     if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
         var innerY = y;
         var indexesOnX = [];
         for (var i = (x - 1); i >= 1; i--) {
-            if ($("#square_" + i + innerY).hasClass("color2")) {
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
                 indexesOnX.push(i);
             } else {
-                if ($("#square_" + i + innerY).hasClass("color1")) {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
                     for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + innerY).removeClass("color2").addClass("color1");
+                        $("#square_" + indexesOnX[k] + innerY).removeClass("color" + colorOut).addClass("color" + colorIn);
                     }
                 }
                 break;
@@ -117,12 +143,12 @@ function colorSquaresInGreen(x, y) {
         var innerY = y;
         var indexesOnX = [];
         for (var i = (x + 1); i <= 8; i++) {
-            if ($("#square_" + i + innerY).hasClass("color2")) {
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
                 indexesOnX.push(i);
             } else {
-                if ($("#square_" + i + innerY).hasClass("color1")) {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
                     for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + innerY).removeClass("color2").addClass("color1");
+                        $("#square_" + indexesOnX[k] + innerY).removeClass("color" + colorOut).addClass("color" + colorIn);
                     } 
                 }
                 break;
@@ -134,12 +160,12 @@ function colorSquaresInGreen(x, y) {
         var innerY = y;
         var indexesOnY = [];
         for (var i = (innerY - 1); i >= 1; i--) {
-            if ($("#square_" + x + i).hasClass("color2")) {
+            if ($("#square_" + x + i).hasClass("color" + colorOut)) {
                 indexesOnY.push(i);
             } else {
-                if ($("#square_" + x + i).hasClass("color1")) {
+                if ($("#square_" + x + i).hasClass("color" + colorIn)) {
                     for (var k = 0; k < indexesOnY.length; k++) {
-                        $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
+                        $("#square_" + x + indexesOnY[k]).removeClass("color" + colorOut).addClass("color" + colorIn);
                     } 
                 }
                 break;
@@ -151,12 +177,12 @@ function colorSquaresInGreen(x, y) {
         var innerY = y;
         var indexesOnY = [];
         for (var i = (innerY + 1); i <= 8; i++) {
-            if ($("#square_" + x + i).hasClass("color2")) {
+            if ($("#square_" + x + i).hasClass("color" + colorOut)) {
                 indexesOnY.push(i);
             } else {
-                if ($("#square_" + x + i).hasClass("color1")) {
+                if ($("#square_" + x + i).hasClass("color" + colorIn)) {
                     for (var k = 0; k < indexesOnY.length; k++) {
-                        $("#square_" + x + indexesOnY[k]).removeClass("color2").addClass("color1");
+                        $("#square_" + x + indexesOnY[k]).removeClass("color" + colorOut).addClass("color" + colorIn);
                     } 
                 }
                 break;
@@ -170,13 +196,13 @@ function colorSquaresInGreen(x, y) {
         var indexesOnY = [];
         for (var i = (x - 1); i >= 1; i--) {
             innerY = innerY - 1;
-            if ($("#square_" + i + innerY).hasClass("color2")) {
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
                 indexesOnX.push(i);
                 indexesOnY.push(innerY);
             } else {
-                if ($("#square_" + i + innerY).hasClass("color1")) {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
                     for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color2").addClass("color1");
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color" + colorOut).addClass("color" + colorIn);
                     } 
                 }
                 break;
@@ -190,13 +216,13 @@ function colorSquaresInGreen(x, y) {
         var indexesOnY = [];
         for (var i = (x + 1); i <= 8; i++) {
             innerY = innerY + 1;
-            if ($("#square_" + i + innerY).hasClass("color2")) {
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
                 indexesOnX.push(i);
                 indexesOnY.push(innerY);
             } else {
-                if ($("#square_" + i + innerY).hasClass("color1")) {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
                     for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color2").addClass("color1");
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color" + colorOut).addClass("color" + colorIn);
                     } 
                 }
                 break;
@@ -210,13 +236,13 @@ function colorSquaresInGreen(x, y) {
         var indexesOnY = [];
         for (var i = (x - 1); i >= 1; i--) {
             innerY = innerY + 1;
-            if ($("#square_" + i + innerY).hasClass("color2")) {
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
                 indexesOnX.push(i);
                 indexesOnY.push(innerY);
             } else {
-                if ($("#square_" + i + innerY).hasClass("color1")) {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
                     for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color2").addClass("color1");
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color" + colorOut).addClass("color" + colorIn);
                     } 
                 }
                 break;
@@ -230,165 +256,14 @@ function colorSquaresInGreen(x, y) {
         var indexesOnY = [];
         for (var i = (x + 1); i <= 8; i++) {
             innerY = innerY - 1;
-            if ($("#square_" + i + innerY).hasClass("color2")) {
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
                 indexesOnX.push(i);
                 indexesOnY.push(innerY);
             } else {
-                if ($("#square_" + i + innerY).hasClass("color1")) {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
                     for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color2").addClass("color1");
+                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color" + colorOut).addClass("color" + colorIn);
                     } 
-                }
-                break;
-            }
-        }
-    }
-}
-
-function colorSquaresInBlack(x, y) {
-//    up -> (x-1, y)
-    if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
-        var innerY = y;
-        var indexesOnX = [];
-        for (var i = (x - 1); i >= 1; i--) {
-            if ($("#square_" + i + innerY).hasClass("color1")) {
-                indexesOnX.push(i);
-            } else {
-                if ($("#square_" + i + innerY).hasClass("color2")) {
-                    for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + innerY).removeClass("color1").addClass("color2");
-                    }
-                }
-                break;
-            }
-        }
-    }
-//    down -> (x+1, y) 
-    if (!$("#square_" + (x + 1) + y).hasClass("color0") && (x + 1) < 9) {
-        var innerY = y;
-        var indexesOnX = [];
-        for (var i = (x + 1); i <= 8; i++) {
-            if ($("#square_" + i + innerY).hasClass("color1")) {
-                indexesOnX.push(i);
-            } else {
-                if ($("#square_" + i + innerY).hasClass("color2")) {
-                    for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + innerY).removeClass("color1").addClass("color2");
-                    }
-                }
-                break;
-            }
-        }
-    }
-//    left, same line -> (x, y-1) 
-    if (!$("#square_" + x + (y - 1)).hasClass("color0") && (y - 1) > 0) {
-        var innerY = y;
-        var indexesOnY = [];
-        for (var i = (innerY - 1); i >= 1; i--) {
-            if ($("#square_" + x + i).hasClass("color1")) {
-                indexesOnY.push(i);
-            } else {
-                if ($("#square_" + x + i).hasClass("color2")) {
-                    for (var k = 0; k < indexesOnY.length; k++) {
-                        $("#square_" + x + indexesOnY[k]).removeClass("color1").addClass("color2");
-                    }
-                }
-                break;
-            }
-        }
-    }
-//    right, same line -> (x, y+1) 
-    if (!$("#square_" + x + (y + 1)).hasClass("color0") && (y + 1) < 9) {
-        var innerY = y;
-        var indexesOnY = [];
-        for (var i = (innerY + 1); i <= 8; i++) {
-            if ($("#square_" + x + i).hasClass("color1")) {
-                indexesOnY.push(i);
-            } else {
-                if ($("#square_" + x + i).hasClass("color2")) {
-                    for (var k = 0; k < indexesOnY.length; k++) {
-                        $("#square_" + x + indexesOnY[k]).removeClass("color1").addClass("color2");
-                    }
-                }
-                break;
-            }
-        }
-    }
-//    upper left corner -> (x-1, y-1) 
-    if (!$("#square_" + (x - 1) + (y - 1)).hasClass("color0") && (x - 1) > 0 && (y - 1) > 0) {
-        var innerY = y;
-        var indexesOnX = [];
-        var indexesOnY = [];
-        for (var i = (x - 1); i >= 1; i--) {
-            innerY = innerY - 1;
-            if ($("#square_" + i + innerY).hasClass("color1")) {
-                indexesOnX.push(i);
-                indexesOnY.push(innerY);
-            } else {
-                if ($("#square_" + i + innerY).hasClass("color2")) {
-                    for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color1").addClass("color2");
-                    }
-                }
-                break;
-            }
-        }
-    }
-//    lower right corner -> (x+1, y+1) 
-    if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && (x + 1) < 9 && (y + 1) < 9) {
-        var innerY = y;
-        var indexesOnX = [];
-        var indexesOnY = [];
-        for (var i = (x + 1); i <= 8; i++) {
-            innerY = innerY + 1;
-            if ($("#square_" + i + innerY).hasClass("color1")) {
-                indexesOnX.push(i);
-                indexesOnY.push(innerY);
-            } else {
-                if ($("#square_" + i + innerY).hasClass("color2")) {
-                    for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color1").addClass("color2");
-                    }
-                }
-                break;
-            }
-        }
-    }
-//    upper right corner -> (x-1, y+1) 
-    if (!$("#square_" + (x - 1) + (y + 1)).hasClass("color0") && (x - 1) > 0 && (y + 1) < 9) {
-        var innerY = y;
-        var indexesOnX = [];
-        var indexesOnY = [];
-        for (var i = (x - 1); i >= 1; i--) {
-            innerY = innerY + 1;
-            if ($("#square_" + i + innerY).hasClass("color1")) {
-                indexesOnX.push(i);
-                indexesOnY.push(innerY);
-            } else {
-                if ($("#square_" + i + innerY).hasClass("color2")) {
-                    for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color1").addClass("color2");
-                    }
-                }
-                break;
-            }
-        }
-    }
-//    lower left corner -> (x+1, y-1) 
-    if (!$("#square_" + (x + 1) + (y - 1)).hasClass("color0") && (x + 1) < 9 && (y - 1) > 0) {
-        var innerY = y;
-        var indexesOnX = [];
-        var indexesOnY = [];
-        for (var i = (x + 1); i <= 8; i++) {
-            innerY = innerY - 1;
-            if ($("#square_" + i + innerY).hasClass("color1")) {
-                indexesOnX.push(i);
-                indexesOnY.push(innerY);
-            } else {
-                if ($("#square_" + i + innerY).hasClass("color2")) {
-                    for (var k = 0; k < indexesOnX.length; k++) {
-                        $("#square_" + indexesOnX[k] + indexesOnY[k]).removeClass("color1").addClass("color2");
-                    }
                 }
                 break;
             }
