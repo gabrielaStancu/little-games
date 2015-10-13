@@ -25,6 +25,10 @@ function generateItems() {
     for (var j = 0; j <= 13; j++) {
         $("#myLines").append("<div id=\"line" + j + "\" class=\"line\"></div>");
     }
+//    infinity signs are generated
+    for (var k = 0; k <= 125; k++) {
+        $("#infinityHolder").append("<div id=\"infinity" + k + "\" class=\"infinity\"></div>");
+    }
 }
 
 function startGame() {
