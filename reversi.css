@@ -121,7 +121,7 @@
     left: 0px;
     width: 55px;
     height: 55px;
-    border: 0.8px dashed green;
+    border: 1px dashed green;
     opacity: 0.5;
     -moz-border-radius: 50px 50px 0 50px;
     border-radius: 50px 50px 0 50px;
