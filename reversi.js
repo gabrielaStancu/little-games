@@ -281,7 +281,8 @@ function checkScore() {
         for (var j = 1; j <= 8; j++) {
             if($("#square_" + j + i).hasClass("color1")) {
                 totalGreens++;
-            } else {
+            } 
+            if($("#square_" + j + i).hasClass("color2")) {
                 totalBlacks++;
             }
             
