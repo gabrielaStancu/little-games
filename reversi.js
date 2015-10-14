@@ -17,11 +17,11 @@ var totalGreens = 0;
 var totalBlacks = 0;
 
 function generateItems() {
+    showPlayer();
 //    matrix is generated
     for (var i = 1; i < 9; i++) {
         matrix[i] = [];
     }
-    
 //    squares are generated
     $("#mySquares").empty();
     for (var i = 1; i <= 8; i++) {
@@ -45,17 +45,28 @@ function movePlayer(x, y, player) {
     matrix[x][y] = player;
 }
 
+function showPlayer() {
+    if (greenUser) {
+        $("#labelGreenUser").removeClass("opacity");
+        $("#labelBlackUser").addClass("opacity");
+    } else {
+        $("#labelGreenUser").addClass("opacity");
+        $("#labelBlackUser").removeClass("opacity");
+    }
+}
+
 
 function startGame() {
-//    matrix[4][4]=1;
-//    matrix[5][5]=1;
-//    matrix[4][5]=2;
-//    matrix[5][4]=2;
+    matrix[4][4]=1;
+    matrix[5][5]=1;
+    matrix[4][5]=2;
+    matrix[5][4]=2;
     $("#square_44, #square_55").removeClass("color0").addClass("color1");
     $("#square_45, #square_54").removeClass("color0").addClass("color2");
 }
 
 function clickOnItem() {
+    checkIfPossible = 0;
     index = this.id.substring(7);
     var x = parseInt(index.substring(0,1));
     var y = parseInt(index.substring(1));
@@ -71,6 +82,7 @@ function clickOnItem() {
             greenUser = false;
             green = true;
             colorSquares(x, y);
+            showPlayer();
         } else {
             checkNearness(x, y);
             if(countNearness !== 0) {
@@ -82,11 +94,12 @@ function clickOnItem() {
             greenUser = true;
             green = false;
             colorSquares(x, y);
+            showPlayer();
         }
     }
 }
 
-// todo: 1. make a single method for colorSquaresInBlack and colorSquaresInGreen, like: move(player,x,y), when this methods runs correctly
+// todo: 1. make a single method for colorSquaresInBlack and colorSquaresInGreen, like: move(player,x,y), when this methods runs correctly ---> Done
 
 // todo: 2. one method to find the corect path for all the 8 directions, like: move(player,x,y,xDirection,yDirection), where xDirection,yDirection can get the following values:[-1,0,1]
 
