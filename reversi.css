@@ -28,11 +28,25 @@
     opacity: 0.2;
 }
 
+#label_up{
+/*    position: absolute;
+    width: 125px;
+    height: 32px;
+    top: 75px;
+    left: 596px;
+    font-size: 27px;
+    font-weight: bold;
+    opacity: 0.5;
+    color: #989898;
+    padding-left: 30px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px 1px #989898;*/
+}
+
 .labelScore{
     position: absolute;
     width: 148px;
     height: 35px;
-    opacity: 0.6;
     font-size: 18px;
     color: white;
     padding-top: 15px;
@@ -40,6 +54,8 @@
     border-radius: 10px;
     box-shadow: 1px 1px 5px 1px #989898;
 }
+
+.opacity{opacity: 0.6;}
 
 #labelGreenUser{
     top: 262px;
