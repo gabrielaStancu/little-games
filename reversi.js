@@ -15,6 +15,7 @@ var countNearness = 0;
 var matrix = [];
 var totalGreens = 0;
 var totalBlacks = 0;
+var squaresToFlip = 0;
 
 function generateItems() {
     showPlayer();
@@ -72,27 +73,29 @@ function clickOnItem() {
     var y = parseInt(index.substring(1));
     if ($("#square_" + index).hasClass("color0")) {
         if (greenUser) {
+            green = true;
             checkNearness(x, y);
-            if(countNearness !== 0) {
+            if(countNearness !== 0 && squaresToFlip !== 0) {
                 $("#square_" + index).removeClass("color0").addClass("color1");
                 countNearness = 0;
+                squaresToFlip = 0;
             } else {
                 return;
             }
             greenUser = false;
-            green = true;
             colorSquares(x, y);
             showPlayer();
         } else {
+            green = false;
             checkNearness(x, y);
-            if(countNearness !== 0) {
+            if(countNearness !== 0 && squaresToFlip !== 0) {
                 $("#square_" + index).removeClass("color0").addClass("color2");
                 countNearness = 0;
+                squaresToFlip = 0;
             } else {
                 return;
             }
             greenUser = true;
-            green = false;
             colorSquares(x, y);
             showPlayer();
         }
@@ -118,14 +121,168 @@ function clickOnItem() {
 // if you arrive in this point change all space between (x,y) and (x',y') with your pieces
 
 function checkNearness(x, y) {
-    if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {countNearness++;}
-    if (!$("#square_" + (x + 1) + y).hasClass("color0") && (x + 1) < 9) {countNearness++;}
-    if (!$("#square_" + x + (y - 1)).hasClass("color0") && (y - 1) > 0) {countNearness++;}
-    if (!$("#square_" + x + (y + 1)).hasClass("color0") && (y + 1) < 9) { countNearness++;}
-    if (!$("#square_" + (x - 1) + (y - 1)).hasClass("color0") && (x - 1) > 0 && (y - 1) > 0) {countNearness++;}
-    if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && (x + 1) < 9 && (y + 1) < 9) {countNearness++;}
-    if (!$("#square_" + (x - 1) + (y + 1)).hasClass("color0") && (x - 1) > 0 && (y + 1) < 9) {countNearness++;}
-    if (!$("#square_" + (x + 1) + (y - 1)).hasClass("color0") && (x + 1) < 9 && (y - 1) > 0) {countNearness++;}
+    if (green) {
+        colorIn = 1;
+        colorOut = 2;
+    } else {
+        colorIn = 2;
+        colorOut = 1;
+    }
+    if (!$("#square_" + (x - 1) + y).hasClass("color0") && (x - 1) > 0) {
+        countNearness++;
+        var innerY = y;
+        var indexesOnX = [];
+        for (var i = (x - 1); i >= 1; i--) {
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
+                indexesOnX.push(i);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        squaresToFlip++;
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
+    if (!$("#square_" + (x + 1) + y).hasClass("color0") && (x + 1) < 9) {
+        countNearness++;
+        var innerY = y;
+        var indexesOnX = [];
+        for (var i = (x + 1); i <= 8; i++) {
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
+                indexesOnX.push(i);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        squaresToFlip++;
+                    } 
+                }
+                break;
+            }
+        }
+    }
+    
+    if (!$("#square_" + x + (y - 1)).hasClass("color0") && (y - 1) > 0) {
+        countNearness++;
+        var innerY = y;
+        var indexesOnY = [];
+        for (var i = (innerY - 1); i >= 1; i--) {
+            if ($("#square_" + x + i).hasClass("color" + colorOut)) {
+                indexesOnY.push(i);
+            } else {
+                if ($("#square_" + x + i).hasClass("color" + colorIn)) {
+                    for (var k = 0; k < indexesOnY.length; k++) {
+                        squaresToFlip++;
+                    } 
+                }
+                break;
+            }
+        }
+    }
+    
+    if (!$("#square_" + x + (y + 1)).hasClass("color0") && (y + 1) < 9) {
+        countNearness++;
+        var innerY = y;
+        var indexesOnY = [];
+        for (var i = (innerY + 1); i <= 8; i++) {
+            if ($("#square_" + x + i).hasClass("color" + colorOut)) {
+                indexesOnY.push(i);
+            } else {
+                if ($("#square_" + x + i).hasClass("color" + colorIn)) {
+                    for (var k = 0; k < indexesOnY.length; k++) {
+                        squaresToFlip++;
+                    } 
+                }
+                break;
+            }
+        }
+    }
+    
+    if (!$("#square_" + (x - 1) + (y - 1)).hasClass("color0") && (x - 1) > 0 && (y - 1) > 0) {
+        countNearness++;
+        var innerY = y;
+        var indexesOnX = [];
+        var indexesOnY = [];
+        for (var i = (x - 1); i >= 1; i--) {
+            innerY = innerY - 1;
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
+                indexesOnX.push(i);
+                indexesOnY.push(innerY);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        squaresToFlip++;
+                    } 
+                }
+                break;
+            }
+        }
+    }
+    
+    if (!$("#square_" + (x + 1) + (y + 1)).hasClass("color0") && (x + 1) < 9 && (y + 1) < 9) {
+        countNearness++;
+        var innerY = y;
+        var indexesOnX = [];
+        var indexesOnY = [];
+        for (var i = (x + 1); i <= 8; i++) {
+            innerY = innerY + 1;
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
+                indexesOnX.push(i);
+                indexesOnY.push(innerY);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        squaresToFlip++;
+                    } 
+                }
+                break;
+            }
+        }
+    }
+    
+    if (!$("#square_" + (x - 1) + (y + 1)).hasClass("color0") && (x - 1) > 0 && (y + 1) < 9) {
+        countNearness++;
+        var innerY = y;
+        var indexesOnX = [];
+        var indexesOnY = [];
+        for (var i = (x - 1); i >= 1; i--) {
+            innerY = innerY + 1;
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
+                indexesOnX.push(i);
+                indexesOnY.push(innerY);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        squaresToFlip++;
+                    } 
+                }
+                break;
+            }
+        }
+    }
+    
+    if (!$("#square_" + (x + 1) + (y - 1)).hasClass("color0") && (x + 1) < 9 && (y - 1) > 0) {
+        countNearness++;
+        var innerY = y;
+        var indexesOnX = [];
+        var indexesOnY = [];
+        for (var i = (x + 1); i <= 8; i++) {
+            innerY = innerY - 1;
+            if ($("#square_" + i + innerY).hasClass("color" + colorOut)) {
+                indexesOnX.push(i);
+                indexesOnY.push(innerY);
+            } else {
+                if ($("#square_" + i + innerY).hasClass("color" + colorIn)) {
+                    for (var k = 0; k < indexesOnX.length; k++) {
+                        squaresToFlip++;
+                    } 
+                }
+                break;
+            }
+        }
+    }
 }
 
 function colorSquares(x, y) {
@@ -288,6 +445,7 @@ function colorSquares(x, y) {
 }
 
 function checkScore() {
+    console.trace("squaresToFlip = " + squaresToFlip);
     totalGreens = 0;
     totalBlacks = 0;
     for (var i = 1; i <= 8; i++) {
