@@ -45,28 +45,44 @@
 
 .labelScore{
     position: absolute;
-    width: 148px;
+    width: 127px;
     height: 35px;
     font-size: 18px;
     color: white;
     padding-top: 15px;
-    padding-left: 20px;
-    border-radius: 10px;
+    padding-left: 23px;
+    border-radius: 30px;
     box-shadow: 1px 1px 5px 1px #989898;
 }
+
+.bubble{
+    position: absolute;
+    width: 30px;
+    height: 35px;
+    left: 330px;
+    font-size: 18px;
+    color: white;
+    padding-top: 15px;
+    padding-left: 20px;
+    border-radius: 30px;
+    box-shadow: 1px 1px 5px 1px #989898;
+}
+
+#greenBubble{background: radial-gradient(#33CC66, #336633); top: 263px;}
+#blackBubble{background: radial-gradient(#686868, #303030); top: 329px;}
 
 .opacity{opacity: 0.6;}
 
 #labelGreenUser{
     top: 262px;
-    left: 209px;
-    background: radial-gradient(#33CC66, #336633);
+    left: 232px;
+    background: radial-gradient(#C8C8C8, #A8A8A8);
 }
 
 #labelBlackUser{
     top: 328px;
-    left: 209px;
-    background: radial-gradient(#686868, #303030);
+    left: 232px;
+    background: radial-gradient(#C8C8C8, #A8A8A8);
 }
 
 .square{
