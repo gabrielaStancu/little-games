@@ -48,11 +48,11 @@ function movePlayer(x, y, player) {
 
 function showPlayer() {
     if (greenUser) {
-        $("#labelGreenUser").removeClass("opacity");
-        $("#labelBlackUser").addClass("opacity");
+        $("#greenBubble").removeClass("opacity");
+        $("#blackBubble").addClass("opacity");
     } else {
-        $("#labelGreenUser").addClass("opacity");
-        $("#labelBlackUser").removeClass("opacity");
+        $("#greenBubble").addClass("opacity");
+        $("#blackBubble").removeClass("opacity");
     }
 }
 
@@ -459,6 +459,6 @@ function checkScore() {
             
         }
     }
-    $("#labelGreenUser").text("Total Green: " + totalGreens);
-    $("#labelBlackUser").text("Total Black: " + totalBlacks);
+    $("#greenBubble").text(totalGreens);
+    $("#blackBubble").text(totalBlacks);
 }
